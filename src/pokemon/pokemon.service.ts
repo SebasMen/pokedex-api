@@ -5,6 +5,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+import { ConfigService } from '@nestjs/config';
 
 import { Model, isValidObjectId } from 'mongoose';
 
@@ -15,10 +16,18 @@ import { Pokemon } from './entities/pokemon.entity';
 
 @Injectable()
 export class PokemonService {
+  private mongodb: string;
+
   constructor(
     @InjectModel(Pokemon.name)
     private readonly pokemonModel: Model<Pokemon>,
-  ) {}
+
+    // Injectamos el servicio de configuracion
+    private readonly configService: ConfigService,
+  ) {
+    // Obtener el valor de la variable de entorno
+    this.mongodb = configService.get<string>('MONGODB');
+  }
 
   async create(createPokemonDto: CreatePokemonDto) {
     createPokemonDto.name = createPokemonDto.name.toLowerCase();
