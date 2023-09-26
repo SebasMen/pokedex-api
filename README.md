@@ -18,6 +18,15 @@
   docker-compose up -d
 ```
 
+5. Clonar el archivo __.env.tempalte__ y renombar la copia a __.env__
+
+6. Llenar variable de entorno definidas
+
+7. Ejecutar la aplicación en dev:
+```
+  yarn start:dev
+```
+
 
 ## Stack usado
 * Nest
